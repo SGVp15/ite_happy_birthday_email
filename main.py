@@ -50,10 +50,10 @@ if __name__ == '__main__':
 
     ignore_users = []
     if os.path.exists(IGNORE_FILE):
-        #     try:
-        #         ignore_users.extend(get_all_users_from_txt(filename=IGNORE_FILE, encoding='1251'))
-        #     except UnicodeDecodeError:
-        #         ignore_users.extend(get_all_users_from_txt(filename=IGNORE_FILE))
+        try:
+            ignore_users.extend(get_all_users_from_txt(filename=IGNORE_FILE, encoding='1251'))
+        except UnicodeDecodeError:
+            ignore_users.extend(get_all_users_from_txt(filename=IGNORE_FILE))
 
         all_users = [user for user in all_users if user not in ignore_users]
 
