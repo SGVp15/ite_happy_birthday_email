@@ -1,15 +1,13 @@
 class Contact:
-    # __slots__ = ('name', 'is_woman', 'birthday')
-
     def __init__(self, name: str, birthday: str, is_woman=False):
-        self.l = name.split(' ')
-        self.first_name = self.l[1]
-        self.last_name = self.l[0]
+        self.word = name.split(' ')
+        self.first_name = self.word[1]
+        self.last_name = self.word[0]
         self.is_woman = is_woman
         self.birthday = birthday.strip()
-        l = self.birthday.split('.')
-        self.day = int(l[0])
-        self.month = int(l[1])
+        day_month = self.birthday.split('.')
+        self.day = int(day_month[0])
+        self.month = int(day_month[1])
 
     def __str__(self):
         return f'{self.last_name} {self.first_name} {self.is_woman} {self.birthday}'
