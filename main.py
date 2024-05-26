@@ -19,8 +19,8 @@ def get_all_users_from_txt(filename, encoding='utf-8'):
         rows = s.split('\n')
         for s in rows:
             try:
-                name = re.findall(r'^([А-Яа-я ]+)\t', s)[0]
-                birthday = re.findall(r'\t(\d{2}.\d{2}.\d{4})', s)[0]
+                birthday = re.findall(r'\s*(\d{2}.\d{2}.\d{4})', s)[0]
+                name = re.findall(r'([А-Яа-я ]+)', s)[0]
                 is_woman = is_contact_a_woman(name, women)
                 contacts.append(Contact(name, birthday=birthday, is_woman=is_woman))
             except (IndexError,):
