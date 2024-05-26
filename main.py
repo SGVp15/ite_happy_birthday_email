@@ -57,17 +57,16 @@ if __name__ == '__main__':
 
         all_users = [user for user in all_users if user not in ignore_users]
 
-    # Удаление дубликатов
-    send_email = [user for user in all_users if is_birthday_today(birthday_month=user.month, birthday_day=user.day)]
+    birthday_users = [user for user in all_users if is_birthday_today(birthday_month=user.month, birthday_day=user.day)]
 
+    # Удаление дубликатов
     users: [Contact] = []
-    for user in send_email:
+    for user in birthday_users:
         if user not in users:
             users.append(user)
 
     with open('./log.txt', encoding='utf-8', mode='a') as f:
         f.write(f'{datetime.datetime.now()} run - ok\n')
         for user in users:
-            print(user)
             send_email_happy_birthday(send_to=SEND_EMAIL_TO, user=user)
             f.write(str(user))
