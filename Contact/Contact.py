@@ -18,6 +18,10 @@ class Contact:
         return f'Name = [{self.last_name} {self.first_name}] [Is woman = {self.is_woman}] [Birthday = {self.birthday}]'
 
     def __eq__(self, other):
-        if self.first_name == other.first_name and self.first_name == other.first_name and self.birthday == other.birthday:
+        if (
+                self.first_name == other.first_name
+                and self.first_name == other.first_name
+                and self.birthday == other.birthday
+        ):
             return True
         return False
