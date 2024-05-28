@@ -11,8 +11,8 @@ SMTP_SERVER = 'smtp.yandex.ru'
 SMTP_PORT = 465
 
 # Куда отправлять Email:
-SEND_EMAIL_TO = ('itexpert_mailing_list@itexpert.ru', )
-# SEND_EMAIL_TO = ('g.savushkin@itexpert.ru',)
+# SEND_EMAIL_TO = ('itexpert_mailing_list@itexpert.ru', )
+SEND_EMAIL_TO = ('g.savushkin@itexpert.ru',)
 
 # Где хрянятся txt файлы на Server
 DIR_TXT = os.path.join('//', '192.168.20.100', 'Administrative server', 'ДНИ РОЖДЕНИЯ СОТРУДНИКОВ')

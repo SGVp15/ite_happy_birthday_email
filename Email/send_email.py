@@ -70,6 +70,7 @@ def send_email_happy_birthday(send_to, user):
     smtp.set_debuglevel(True)
     smtp.login(EMAIL_LOGIN, EMAIL_PASSWORD)
     smtp.send_message(msg)
+    time.sleep(1)
     smtp.quit()
     print(f'{user.last_name} {user.first_name} - Письмо отправлено!^_^')
-    time.sleep(1)
+
