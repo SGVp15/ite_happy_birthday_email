@@ -5,7 +5,7 @@ import re
 
 from Contact.Contact import Contact
 from Email.send_email import send_email_happy_birthday
-from config import DIR_TXT, SEND_EMAIL_TO, IGNORE_FILE
+from config import DIR_TXT, SEND_EMAIL_TO, IGNORE_FILE, LOG
 
 
 def is_birthday_today(birthday_month: int, birthday_day: int):
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     log.info(f"Именинников сегодня: {len(users)}")
 
     try:
-        with open('./log.txt', encoding='utf-8', mode='a') as f:
+        with open(LOG, encoding='utf-8', mode='a') as f:
             f.write(f'{datetime.datetime.now()} run - ok\n')
             for user in users:
                 try:

@@ -23,4 +23,5 @@ IGNORE_FILE = os.path.join(DIR_TXT, 'ignore.txt')
 if not check_folder_accessibility(DIR_TXT):
     raise f'{check_folder_accessibility(DIR_TXT)}'
 
-SYSTEM_LOG = '//system_log.txt'
+SYSTEM_LOG = './system_log.txt'
+LOG = './log.txt'
