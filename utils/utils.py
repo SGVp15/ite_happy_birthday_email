@@ -29,3 +29,30 @@ def encode_image_to_base64(image_path: str) -> str:
     except Exception as e:
         logging.error(f"Ошибка при кодировании изображения {image_path} в base64: {e}")
         raise
+
+
+def get_random_image(path='./images/'):
+    try:
+        all_image = os.listdir(path)
+        if not all_image:
+            raise FileNotFoundError(f"Папка с изображениями пуста: {path}")
+        r = random.choice(all_image)
+        full_path = os.path.join(path, r)
+        return full_path
+    except Exception as e:
+        logging.error(f"Ошибка при выборе случайного изображения из {path}: {e}")
+        raise
+
+
+def get_random_congratulation(path='./congratulation.txt'):
+    try:
+        with open(path, encoding='utf-8', mode='r') as f:
+            s = f.read()
+        rows = s.split('\n')
+        while True:
+            row = random.choice(rows).strip()
+            if len(row) > 10:
+                return row
+    except Exception as e:
+        logging.error(f"Ошибка при чтении файла поздравлений {path}: {e}")
+        return "С днем рождения!"

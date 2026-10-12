@@ -4,45 +4,16 @@ import os
 import random
 import smtplib
 import time
+from dotenv import dotenv_values
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from dotenv import dotenv_values
-
 from config import SMTP_SERVER, SMTP_PORT
+from utils.utils import get_random_image, get_random_congratulation
 
 config = dotenv_values('./.env')
 EMAIL_LOGIN = config.get('EMAIL_LOGIN')
 EMAIL_PASSWORD = config.get('EMAIL_PASSWORD')
-
-
-def get_random_image(path='./images/'):
-    try:
-        all_image = os.listdir(path)
-        if not all_image:
-            raise FileNotFoundError(f"Папка с изображениями пуста: {path}")
-        r = random.choice(all_image)
-        full_path = os.path.join(path, r)
-        return full_path
-    except Exception as e:
-        logging.error(f"Ошибка при выборе случайного изображения из {path}: {e}")
-        raise
-
-
-def get_random_congratulation(path='./congratulation.txt'):
-    try:
-        with open(path, encoding='utf-8', mode='r') as f:
-            s = f.read()
-        rows = s.split('\n')
-        while True:
-            row = random.choice(rows).strip()
-            if len(row) > 10:
-                return row
-    except Exception as e:
-        logging.error(f"Ошибка при чтении файла поздравлений {path}: {e}")
-        return "С днем рождения!"
-
-path = './images/'
 
 
 def send_email_happy_birthday(send_to, user):
