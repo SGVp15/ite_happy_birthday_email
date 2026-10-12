@@ -16,7 +16,7 @@ EMAIL_LOGIN = config.get('EMAIL_LOGIN')
 EMAIL_PASSWORD = config.get('EMAIL_PASSWORD')
 
 
-def get_random_image(path):
+def get_random_image(path='./images/'):
     try:
         all_image = os.listdir(path)
         if not all_image:
@@ -42,6 +42,8 @@ def get_random_congratulation(path='./congratulation.txt'):
         logging.error(f"Ошибка при чтении файла поздравлений {path}: {e}")
         return "С днем рождения!"
 
+path = './images/'
+
 
 def send_email_happy_birthday(send_to, user):
     user_fullname = f"{getattr(user, 'last_name', '')} {getattr(user, 'first_name', '')}".strip()
@@ -57,12 +59,7 @@ def send_email_happy_birthday(send_to, user):
         else:
             msg['To'] = send_to
 
-        path = './images/'
-        image_path = get_random_image(path)
-
-        with open(image_path, mode='rb') as f:
-            s = f.read()
-        base64_file = base64.b64encode(s).decode("utf-8")
+        base64_file = encode_image_to_base64(get_random_image())
 
         congratulation_text = get_random_congratulation()
 
