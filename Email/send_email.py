@@ -1,15 +1,13 @@
-import base64
-import logging
-import os
-import random
 import smtplib
 import time
-from dotenv import dotenv_values
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from dotenv import dotenv_values
+
 from config import SMTP_SERVER, SMTP_PORT
-from utils.utils import get_random_image, get_random_congratulation
+from utils.log import log
+from utils.utils import get_random_image, get_random_congratulation, encode_image_to_base64
 
 config = dotenv_values('./.env')
 EMAIL_LOGIN = config.get('EMAIL_LOGIN')
@@ -18,7 +16,7 @@ EMAIL_PASSWORD = config.get('EMAIL_PASSWORD')
 
 def send_email_happy_birthday(send_to, user):
     user_fullname = f"{getattr(user, 'last_name', '')} {getattr(user, 'first_name', '')}".strip()
-    logging.info(f"Подготовка к отправке письма для пользователя: {user_fullname}")
+    log.info(f"Подготовка к отправке письма для пользователя: {user_fullname}")
 
     try:
         msg = MIMEMultipart("alternative")
@@ -55,7 +53,7 @@ def send_email_happy_birthday(send_to, user):
 
         msg.attach(MIMEText(html, "html"))
 
-        logging.debug(f"Подключение к SMTP-серверу {SMTP_SERVER}:{SMTP_PORT}...")
+        log.debug(f"Подключение к SMTP-серверу {SMTP_SERVER}:{SMTP_PORT}...")
         smtp = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
         smtp.set_debuglevel(0)  # Установите 1, если нужен отладочный вывод smtplib в консоль
 
@@ -64,9 +62,9 @@ def send_email_happy_birthday(send_to, user):
         time.sleep(1)
         smtp.quit()
 
-        logging.info(f"Письмо успешно отправлено для: {user_fullname}")
+        log.info(f"Письмо успешно отправлено для: {user_fullname}")
         print(f'{user_fullname} - Письмо отправлено!^_^')
 
     except Exception as e:
-        logging.error(f"Не удалось отправить письмо для {user_fullname}: {e}")
+        log.error(f"Не удалось отправить письмо для {user_fullname}: {e}")
         raise

@@ -1,6 +1,6 @@
 import logging
 
-from Config import SYSTEM_LOG, LOG_FILE, LOG_BACKUP
+from config import SYSTEM_LOG
 
 file_log = logging.FileHandler(SYSTEM_LOG)
 console_out = logging.StreamHandler()

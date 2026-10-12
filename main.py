@@ -22,8 +22,7 @@ def get_all_users_from_txt(filename, encoding='utf-8'):
             try:
                 birthday = re.findall(r'\s*(\d{2}.\d{2}.\d{4})', row)[0]
                 name = re.findall(r'([А-Яа-я ]+)', row)[0]
-                is_woman = is_contact_a_woman(name, women)
-                contacts.append(Contact(name, birthday=birthday, is_woman=is_woman))
+                contacts.append(Contact(name, birthday=birthday))
             except (IndexError,):
                 pass
         log.debug(f"Успешно прочитано контактов из файла {filename}: {len(contacts)}")

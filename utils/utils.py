@@ -1,3 +1,7 @@
+import os
+import random
+
+
 def check_folder_accessibility(path):
     if not os.path.exists(path):
         print(f"Путь не существует или недоступен: {path}")
@@ -25,7 +29,6 @@ def encode_image_to_base64(image_path: str) -> str:
             s = f.read()
         return base64.b64encode(s).decode("utf-8")
     except Exception as e:
-        log.error(f"Ошибка при кодировании изображения {image_path} в base64: {e}")
         raise
 
 
@@ -38,7 +41,6 @@ def get_random_image(path='./images/'):
         full_path = os.path.join(path, r)
         return full_path
     except Exception as e:
-        log.error(f"Ошибка при выборе случайного изображения из {path}: {e}")
         raise
 
 
@@ -52,5 +54,4 @@ def get_random_congratulation(path='./congratulation.txt'):
             if len(row) > 10:
                 return row
     except Exception as e:
-        log.error(f"Ошибка при чтении файла поздравлений {path}: {e}")
         return "С днем рождения!"

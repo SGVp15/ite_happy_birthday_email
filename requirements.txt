@@ -1,2 +1,2 @@
-python-dotenv~=0.19.2
-openpyxl~=3.0.9
+python-dotenv
+openpyxl
