@@ -6,7 +6,6 @@ def check_folder_accessibility(path):
         print(f"Указанный путь не является директорией: {path}")
         return False
     try:
-        # Проверяем права на чтение содержимого папки
         os.listdir(path)
         print(f"Папка доступна: {path}")
         return True
@@ -17,17 +16,16 @@ def check_folder_accessibility(path):
         print(f"Ошибка при проверке папки: {e}")
         return False
 
-import base64
-import logging
 
 def encode_image_to_base64(image_path: str) -> str:
     """Читает изображение по пути и возвращает его в формате base64 (строка utf-8)."""
+    import base64
     try:
         with open(image_path, mode='rb') as f:
             s = f.read()
         return base64.b64encode(s).decode("utf-8")
     except Exception as e:
-        logging.error(f"Ошибка при кодировании изображения {image_path} в base64: {e}")
+        log.error(f"Ошибка при кодировании изображения {image_path} в base64: {e}")
         raise
 
 
@@ -40,7 +38,7 @@ def get_random_image(path='./images/'):
         full_path = os.path.join(path, r)
         return full_path
     except Exception as e:
-        logging.error(f"Ошибка при выборе случайного изображения из {path}: {e}")
+        log.error(f"Ошибка при выборе случайного изображения из {path}: {e}")
         raise
 
 
@@ -54,5 +52,5 @@ def get_random_congratulation(path='./congratulation.txt'):
             if len(row) > 10:
                 return row
     except Exception as e:
-        logging.error(f"Ошибка при чтении файла поздравлений {path}: {e}")
+        log.error(f"Ошибка при чтении файла поздравлений {path}: {e}")
         return "С днем рождения!"
