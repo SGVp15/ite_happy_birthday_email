@@ -14,20 +14,17 @@ def is_birthday_today(birthday_month: int, birthday_day: int):
 
 def get_all_users_from_txt(filename, encoding='utf-8'):
     contacts = []
-    try:
-        with open(file=filename, mode='r', encoding=encoding) as f:
-            s = f.read()
-        rows = s.split('\n')
-        for row in rows:
-            try:
-                birthday = re.findall(r'\s*(\d{2}.\d{2}.\d{4})', row)[0]
-                name = re.findall(r'([А-Яа-я ]+)', row)[0]
-                contacts.append(Contact(name, birthday=birthday))
-            except (IndexError,):
-                pass
-        log.debug(f"Успешно прочитано контактов из файла {filename}: {len(contacts)}")
-    except Exception as e:
-        log.error(f"Ошибка при чтении файла {filename}: {e}")
+    with open(file=filename, mode='r', encoding=encoding) as f:
+        s = f.read()
+    rows = s.split('\n')
+    for row in rows:
+        try:
+            birthday = re.findall(r'\s*(\d{2}.\d{2}.\d{4})', row)[0]
+            name = re.findall(r'([А-Яа-я ]+)', row)[0]
+            contacts.append(Contact(name, birthday=birthday))
+        except (IndexError,):
+            pass
+    log.debug(f"Успешно прочитано контактов из файла {filename}: {len(contacts)}")
     return contacts
 
 
@@ -46,14 +43,14 @@ if __name__ == '__main__':
         exit(1)
 
     try:
-        txt = set([x for x in os.listdir(DIR_TXT) if x.endswith('.txt')])
-        log.info(f"Найдено текстовых файлов в папке: {len(txt)}")
+        txt_files = set([x for x in os.listdir(DIR_TXT) if x.endswith('.txt')])
+        log.info(f"Найдено текстовых файлов в папке: {len(txt_files)}")
     except Exception as e:
         log.critical(f"Ошибка при сканировании папки {DIR_TXT}: {e}")
         exit(1)
 
     all_users = []
-    for file in txt:
+    for file in txt_files:
         file_path = os.path.join(DIR_TXT, file)
         try:
             all_users.extend(get_all_users_from_txt(filename=file_path, encoding='1251'))
