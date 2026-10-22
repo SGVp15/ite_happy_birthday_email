@@ -23,7 +23,7 @@ def send_email_happy_birthday(send_to, user):
         msg['From'] = EMAIL_LOGIN
         msg['Subject'] = f'Сегодня празднует день рождения {user_fullname} &#129395;'
 
-        if isinstance(send_to, list):
+        if isinstance(send_to, list) or isinstance(send_to, tuple):
             msg['To'] = ';'.join(send_to)
         else:
             msg['To'] = send_to
